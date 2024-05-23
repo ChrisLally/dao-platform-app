@@ -44,7 +44,6 @@
 		"@achingbrain/node-fetch": "2.6.7",
 		"@apollo/client": "3.6.9",
 		"@bmatei/apollo-prometheus-exporter": "2.1.1",
-		"@dev/nestjs-common": "0.0.1",
 		"@ethersproject/abi": "5.7.0",
 		"@ethersproject/providers": "5.7.1",
 		"@gnosis.pm/safe-core-sdk": "2.4.1",
