@@ -1,11 +1,10 @@
 import { useRouter } from 'next/router';
 import { FC, useEffect, ReactNode } from 'react';
-import { useTranslation } from 'next-i18next';
 
 import { useDaoBySlugQuery, useIsOpenSaleActiveQuery } from 'src/gql/daos.generated';
 import { useCollectionInfoByTierQuery } from 'src/gql/nft.generated';
 import { getIsValueProvided } from 'src/utils/texts';
-import { parseGqlErrorMessage } from 'src/utils/errors';
+
 
 import { CheckoutDataContextProvider } from '../context/checkoutDataContext';
 import { TierIsNotValidModal, UnknownErrorModal } from '../modals';
@@ -19,7 +18,7 @@ type Props = {
 export const CheckoutCommonFetchingContainer: FC<Props> = (props) => {
 	const { children, pageLoaderComponent } = props;
 
-	const { t } = useTranslation();
+	//const { t } = useTranslation();
 	const { query, push } = useRouter();
 	const slug = typeof query.slug === 'string' ? query.slug : '';
 	const tier = typeof query.tier === 'string' ? query.tier : '';
@@ -36,7 +35,7 @@ export const CheckoutCommonFetchingContainer: FC<Props> = (props) => {
 	const { data: daoData, isLoading: isDaoBySlugLoading } = useDaoBySlugQuery(
 		{ slug },
 		{
-			onError: (error) => {}
+			onError: (error) => {console.log(error)}
 		}
 	);
 	const dao = daoData?.daoBySlug;
@@ -49,7 +48,7 @@ export const CheckoutCommonFetchingContainer: FC<Props> = (props) => {
 		},
 		{
 			enabled: !!kernelAddress && getIsValueProvided(tier),
-			onError: (error) => {}
+			onError: (error) => {console.log(error)}
 		}
 	);
 
@@ -59,7 +58,7 @@ export const CheckoutCommonFetchingContainer: FC<Props> = (props) => {
 		},
 		{
 			enabled: !!kernelAddress,
-			onError: (error) => {}
+			onError: (error) => {console.log(error)}
 		}
 	);
 

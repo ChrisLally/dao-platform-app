@@ -1,4 +1,4 @@
-import { LoggerService, MiddlewareConsumer, Module } from '@nestjs/common';
+import { LoggerService, Module } from '@nestjs/common';
 import {
 	makeCounterProvider,
 	makeHistogramProvider,
@@ -18,9 +18,9 @@ import {
 } from 'apollo-server-core';
 import depthLimit from 'graphql-depth-limit';
 import { createPrometheusExporterPlugin } from '@bmatei/apollo-prometheus-exporter';
-import winston from 'winston';
+//import winston from 'winston';
 
-import { WinstonModule, WINSTON_MODULE_PROVIDER, TracerModule } from '@dev/nestjs-common';
+//import { WinstonModule, WINSTON_MODULE_PROVIDER, TracerModule } from '@dev/nestjs-common';
 
 import { PromInterceptor } from 'src/prom.interceptor';
 
@@ -58,14 +58,14 @@ import { PreviewModule } from 'src/services/preview/preview.module';
 import { WebhookModule } from 'src/services/webhook/webhook.module';
 import { CoinMarketCapModule } from 'src/services/coinMarketCap/coinMarketCap.module';
 import { DaoAnalyticsModule } from 'src/entities/daoAnalytics/daoAnalytics.module';
-import { devTransports, prodTransports } from 'src/utils/logger';
+//import { devTransports, prodTransports } from 'src/utils/logger';
 import { MetaTransactionModule } from 'src/entities/metaTransaction/metaTransaction.module';
 import { EthersModule } from 'src/services/ethers/ethers.module';
 import { CompositeBlockchainModule } from 'src/services/blockchain/blockchain.module';
 import { ReferralModule } from './entities/referral/referral.module';
 import { AppController } from './app.controller';
 import { RequestLoggerInterceptor } from './interceptors/requestLogger.interceptor';
-import { AsyncContextMiddleware } from './middleware/asyncContext.middleware';
+//import { AsyncContextMiddleware } from './middleware/asyncContext.middleware';
 import { EmailVerificationModule } from './services/emailVerification/emailVerification.module';
 import { NftAdminModule } from './entities/nftAdmin/nftAdmin.module';
 import { EmailSettingsModule } from './entities/emailSettings/emailSettings.module';
@@ -202,7 +202,7 @@ const DOMAIN_MODULES = [
 			})
 		}),
 		RedisModule.forRootAsync({
-			inject: [ConfigService, WINSTON_MODULE_PROVIDER],
+			inject: [ConfigService],
 			useFactory: async (configService: ConfigService, logger: LoggerService) => ({
 				config: {
 					host: configService.get('redis.host'),
@@ -227,28 +227,15 @@ const DOMAIN_MODULES = [
 				readyLog: true
 			})
 		}),
-		TracerModule,
 		...DOMAIN_MODULES,
 		EthersModule,
 		EventsModule,
 		ConsumersModule,
-		TransactionMetricsModule,
-		WinstonModule.forRootAsync({
-			useFactory: (configService: ConfigService) => {
-				const isProd = configService.get<boolean>('env.isProd');
-				return {
-					level: isProd ? 'info' : 'debug',
-					format: winston.format.json(),
-					transports: isProd ? prodTransports : devTransports
-				};
-			},
-			inject: [ConfigService],
-			imports: [TracerModule]
-		})
+		TransactionMetricsModule
 	]
 })
 export class AppModule {
-	configure(consumer: MiddlewareConsumer): void {
-		consumer.apply(AsyncContextMiddleware).forRoutes('*');
-	}
+	// configure(consumer: MiddlewareConsumer): void {
+	// 	//consumer.apply(AsyncContextMiddleware).forRoutes('*');
+	// }
 }

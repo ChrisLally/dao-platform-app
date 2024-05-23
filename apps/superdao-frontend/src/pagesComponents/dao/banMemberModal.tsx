@@ -108,11 +108,11 @@ export const BanMemberModal = (props: Props) => {
 
 	const handleBanMember = async () => {
 		handleSuccessTransaction();
-		banUser(
+		(banUser as any)(
 			{ userId, daoAddress, tokenIds: flattenedTokenIds, nftCount: nfts?.length },
 			{
 				onSuccess: onClose,
-				onError: (error) => {
+				onError: (error: any) => {
 					toast.dismiss(toastData.key);
 					let metamaskErrorMessage = t(`errors.metamask.${(error as MetamaskError).code}`, '');
 

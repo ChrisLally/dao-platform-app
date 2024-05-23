@@ -62,6 +62,7 @@ export const useMetamaskAccountChange = (provider?: Web3Provider) => {
 			},
 			onError: async (error: any) => {
 				const message = error?.message;
+				console.error('useMetamaskAccountChange error:', message);
 			}
 		}
 	);

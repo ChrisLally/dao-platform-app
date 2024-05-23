@@ -8,7 +8,7 @@ import { ContractErrorCodesToShowModalFor } from 'src/features/checkout/internal
 import { useCheckoutNavigationContext } from 'src/features/checkout/internal/context/checkoutNavigationContext';
 import { useCheckoutPaymentContext } from 'src/features/checkout/internal/context/checkoutPaymentContext';
 
-const DEFAULT_ERROR_MESSAGE_KEY = 'errors.anErrorOccured';
+//const DEFAULT_ERROR_MESSAGE_KEY = 'errors.anErrorOccured';
 
 /**
  * Error callbacks
@@ -64,7 +64,7 @@ export const usePaymentErrorHandler = () => {
 				return;
 			}
 
-			toast.error(t(DEFAULT_ERROR_MESSAGE_KEY, { sentryEventId: eventId }));
+			//toast.error(t(DEFAULT_ERROR_MESSAGE_KEY, { sentryEventId: eventId }));
 			console.error(error);
 		},
 		[navigation.paths.daoProfile, navigation.paths.paymentSelection, setContractErrorModalArgs, setNeedsLeaveConfirm, t]

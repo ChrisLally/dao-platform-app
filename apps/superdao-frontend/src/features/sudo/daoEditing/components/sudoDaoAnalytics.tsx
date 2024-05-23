@@ -9,7 +9,6 @@ import {
 } from 'src/gql/daoAnalytics.generated';
 import { Button, CustomSelect, PageLoader, toast } from 'src/components';
 import * as Types from 'src/types/types.generated';
-
 type Props = {
 	dao: PublicDaoFragment;
 };
@@ -47,17 +46,17 @@ export const SudoDaoAnalytics = (props: Props) => {
 	});
 
 	const onSubmit = (data: any) => {
-		mutate(
-			{ ...data, daoId: dao.id, id: daoAnalyticsByDaoId?.id },
-			{
-				onSuccess: () => {
-					refetch();
-					reset();
-					toast.success('Dao analytics updated');
-				}
+		(mutate as any)(
+		  { ...data, daoId: dao.id, id: daoAnalyticsByDaoId?.id },
+		  {
+			onSuccess: () => {
+			  refetch();
+			  reset();
+			  toast.success('Dao analytics updated');
 			}
+		  }
 		);
-	};
+	  };
 
 	if (isLoading) {
 		return <PageLoader />;

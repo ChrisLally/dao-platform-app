@@ -27,7 +27,9 @@ export const DropdownMenu = ({ slug, proposal, status, className }: Props) => {
 		deleteProposal(
 			{ proposalId: proposal },
 			{
-				onError: (error) => {}
+				onError: (error) => {
+					console.log(error);
+				}
 			}
 		).then(async (success) => {
 			if (success.deleteProposal) {

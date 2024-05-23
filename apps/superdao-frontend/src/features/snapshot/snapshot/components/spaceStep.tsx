@@ -23,7 +23,7 @@ export const SpaceStep = (props: StepProps) => {
 	const { data, isLoading, isRefetching, refetch } = SnapshotApi.useSnapshotSpaceQuery(
 		{ id: snapshotEnsDomain },
 		{
-			onError: (error) => {}
+			onError: (error) => {console.error(error)}
 		}
 	);
 	const { space } = data ?? {};
@@ -74,7 +74,7 @@ export const SpaceStep = (props: StepProps) => {
 				onSuccess: () => {
 					refetch().then(() => onStepSuccess());
 				},
-				onError: (error) => {}
+				onError: (error) => {console.error(error)}
 			}
 		);
 	};

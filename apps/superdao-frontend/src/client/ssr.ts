@@ -38,9 +38,9 @@ export const prefetchData = async (ctx: GetServerSidePropsContext) => {
 
 		const { currentUser } = (await UserAPI.useCurrentUserQuery.fetcher({}, headers)()) || {};
 
-		AppError.assert(currentUser, 'User not found', {
-			payload: { tags: { team: 'CORE', section: 'Auth' } }
-		});
+		// AppError.assert(currentUser, 'User not found', {
+		// 	payload: { tags: { team: 'CORE', section: 'Auth' } }
+		// });
 
 		const { canCreateMoreDao } = (await UserAPI.useCanCreateMoreDaoQuery.fetcher({}, headers)())!;
 		await getUserDaoParticipation(queryClient, ctx, { userId });
@@ -48,10 +48,12 @@ export const prefetchData = async (ctx: GetServerSidePropsContext) => {
 		queryClient.setQueryData<CanCreateMoreDaoQuery>(UserAPI.useCanCreateMoreDaoQuery.getKey(), {
 			canCreateMoreDao
 		});
-		queryClient.setQueryData<CurrentUserQuery>(UserAPI.useCurrentUserQuery.getKey(), { currentUser });
-		queryClient.setQueryData<UserByIdOrSlugQuery>(UserAPI.useUserByIdOrSlugQuery.getKey({ idOrSlug: currentUser.id }), {
-			userByIdOrSlug: currentUser
-		});
+		if (currentUser) {
+			queryClient.setQueryData<CurrentUserQuery>(UserAPI.useCurrentUserQuery.getKey(), { currentUser });
+			queryClient.setQueryData<UserByIdOrSlugQuery>(UserAPI.useUserByIdOrSlugQuery.getKey({ idOrSlug: currentUser.id }), {
+			  userByIdOrSlug: currentUser
+			});
+		  }
 	} else {
 		queryClient.setQueryData<CurrentUserQuery>(UserAPI.useCurrentUserQuery.getKey(), {
 			currentUser: userPlaceholder()

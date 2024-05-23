@@ -57,7 +57,7 @@ export const CheckoutSuccessContainer = (props: Props) => {
 	const { data: daoData, isLoading: isDaoLoading } = useDaoBySlugQuery(
 		{ slug },
 		{
-			onError: (error) => {}
+			onError: (error) => {console.error(error)}
 		}
 	);
 	const { id, name, description, avatar } = daoData?.daoBySlug || {};

@@ -7,6 +7,7 @@ A substantial part of DAO platform is Superdao OS ([article](https://mirror.xyz/
 
 ## First start
 
+
 - Install project dependencies - `pnpm install`
 - Bring up the database and cache services - `docker-compose up -d`
 - Copy the configuration files - `cp apps/superdao-backend/.env.example apps/superdao-backend/.env && cp apps/superdao-frontend/.env.example apps/superdao-frontend/.env`
@@ -14,6 +15,17 @@ A substantial part of DAO platform is Superdao OS ([article](https://mirror.xyz/
 - Generate graphql types - `pnpm codegen`
 - Prepare sources in ui-tests (only for autotesters) - `pnpm init`
 - Run the server in development mode - `pnpm dev`
+
+## Useful Commands
+- `docker exec -it <docker_postgres_container_name> psql -U postgres`
+- `CREATE ROLE superdao LOGIN;`
+- `CREATE DATABASE superdao;`
+- `\c superdao`
+- `GRANT ALL PRIVILEGES ON SCHEMA public TO superdao;`
+- `CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`
+-  Save GASLESS_WALLET_PRIVATE_KEY and SIGNER_WALLET_PRIVATE_KEY private keys in the .env 
+- `rm -rf node_modules pnpm-lock.yaml`
+
 
 ## Blockchain API:
 

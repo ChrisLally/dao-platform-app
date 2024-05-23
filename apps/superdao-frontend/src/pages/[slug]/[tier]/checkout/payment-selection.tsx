@@ -38,15 +38,26 @@ const CheckoutPaymentSelectionPage: NextPageWithLayout<Props> = (props) => {
 CheckoutPaymentSelectionPage.getLayout = getDaoLayout;
 
 export const getServerSideProps = SSR(async (ctx) => {
-	const [_, getProps] = await prefetchData(ctx);
-
+	let getProps;
+	try {
+	  const [_, getPropsFunc] = await prefetchData(ctx);
+	  getProps = getPropsFunc;
+	} catch (error) {
+	  console.error('Error prefetching data:', error);
+	}
+  
 	const isFiatPaymentEnabled = featureToggles.isEnabled('sale_fiat_payment');
-
-	const isViaEnabled = getIsFeatureEnabled(FEATURES.PAYMENT_WITH_VIA, ctx);
-
+  
+	let isViaEnabled;
+	try {
+	  isViaEnabled = getIsFeatureEnabled(FEATURES.PAYMENT_WITH_VIA, ctx);
+	} catch (error) {
+	  console.error('Error checking if feature is enabled:', error);
+	}
+  
 	return {
-		props: { ...getProps(), isFiatPaymentEnabled, isViaEnabled }
+	  props: { ...(getProps ? getProps() : {}), isFiatPaymentEnabled, isViaEnabled }
 	};
-});
+  });
 
 export default CheckoutPaymentSelectionPage;

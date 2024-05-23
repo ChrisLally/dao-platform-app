@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 
 import { useCallback, useMemo, useRef } from 'react';
 import isEmpty from 'lodash/isEmpty';
-import cn from 'classnames';
 import {
 	OutlineInformationIcon,
 	OutlineMembersIcon,
@@ -13,14 +12,13 @@ import {
 	BadgeIcon,
 	TopIcon,
 	MapIcon,
-	HomeIcon,
-	FeedScoringIcon
+	HomeIcon
 } from 'src/components/assets/icons';
 import { AuthAPI } from 'src/features/auth/API';
 import { useCurrentUserMemberRoleQuery } from 'src/gql/daoMembership.generated';
 import { useDaoBySlugQuery } from 'src/gql/daos.generated';
 
-import { CustomLink, Label1, SubHeading } from 'src/components';
+import { CustomLink} from 'src/components';
 import { isAdmin } from 'src/utils/roles';
 import { useCurrentUserQuery } from 'src/gql/user.generated';
 import { DaoMode } from 'src/types/types.generated';
@@ -35,10 +33,6 @@ import { DaoPageNavigationDocumentsTab } from './daoPageNavigationDocumentsTab';
 import { DAO_TABS as TABS } from '../types';
 import { usePreventScrollWhenHeightChanges } from '../hooks/usePreventScrollWhenHeightChanges';
 import { NestedNavigation } from './nestedPageNavigationTab';
-import Tooltip from 'src/components/tooltip';
-import { SkeletonComponent } from 'src/components/skeletonBaseComponent';
-import { useEarlyAdoptersAudienceCounterQuery } from 'src/gql/audienceEarlyAdopters.generated';
-import { formatToCompactNotation } from 'src/utils/formattes';
 
 type Props = {
 	toggleIsNavigationShown: () => void;
@@ -81,14 +75,14 @@ export const DaoPageNavigation = (props: Props) => {
 	);
 	const { level } = dataLevel?.getAchievementsUserProgress || {};
 
-	const { data: earlyAdoptersCounter } = useEarlyAdoptersAudienceCounterQuery(
-		{ daoId: id as string },
-		{
-			keepPreviousData: true,
-			select: (data) => data.earlyAdoptersAudience.total,
-			cacheTime: 0
-		}
-	);
+	// const { data: earlyAdoptersCounter } = useEarlyAdoptersAudienceCounterQuery(
+	// 	{ daoId: id as string },
+	// 	{
+	// 		keepPreviousData: true,
+	// 		select: (data) => data.earlyAdoptersAudience.total,
+	// 		cacheTime: 0
+	// 	}
+	// );
 
 	const getCurrentDaoTab = useCallback((): TABS => {
 		let routeSteps: any = asPath.split('#')[0]; // remove hash (#docs) on /edit page

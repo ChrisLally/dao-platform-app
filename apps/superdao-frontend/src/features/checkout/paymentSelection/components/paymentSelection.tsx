@@ -140,7 +140,7 @@ export const PaymentSelection = (props: Props) => {
 		{
 			refetchInterval: 60 * 1000,
 			enabled: Boolean(priceTokenId),
-			onError: (error) => {}
+			onError: (error) => {console.log(error)}
 		} // 1 minute
 	).data?.exchange;
 
@@ -148,7 +148,7 @@ export const PaymentSelection = (props: Props) => {
 		{ address: walletAddress!, chainId: Chain.Polygon },
 		{
 			enabled: walletAddress !== undefined,
-			onError: (error) => {}
+			onError: (error) => {console.log(error)}
 		}
 	).data?.getBalanceWithCovalent;
 
@@ -156,7 +156,7 @@ export const PaymentSelection = (props: Props) => {
 		{ address: walletAddress!, chainId: Chain.Ethereum },
 		{
 			enabled: walletAddress !== undefined && isViaEnabled,
-			onError: (error) => {}
+			onError: (error) => {console.log(error)}
 		}
 	).data?.getBalanceWithCovalent;
 

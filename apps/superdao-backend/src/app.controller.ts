@@ -4,7 +4,6 @@ import {
 	ForbiddenException,
 	Get,
 	HttpCode,
-	Inject,
 	InternalServerErrorException,
 	NotFoundException,
 	Post,
@@ -16,7 +15,8 @@ import express from 'express';
 import crypto from 'crypto';
 import { DataSource } from 'typeorm';
 import { InjectDataSource } from '@nestjs/typeorm';
-import { WinstonAdapter, WINSTON_MODULE_PROVIDER } from '@dev/nestjs-common';
+//import { WinstonAdapter, WINSTON_MODULE_PROVIDER } from '@dev/nestjs-common';
+import { Logger } from '@nestjs/common';
 import { EthersService } from 'src/services/ethers/ethers.service';
 import { EnsResolver } from 'src/services/the-graph/ens/ensResolver';
 import { NftClientService } from 'src/entities/nft/nft-client.service';
@@ -27,8 +27,8 @@ import { User } from 'src/entities/user/user.model';
 
 @Controller()
 export class AppController {
+	private readonly logger = new Logger(AppController.name);
 	constructor(
-		@Inject(WINSTON_MODULE_PROVIDER) private readonly logger: WinstonAdapter,
 		private readonly configService: ConfigService,
 		@InjectDataSource() private readonly dataSource: DataSource,
 		private readonly nftClientService: NftClientService,
@@ -36,9 +36,7 @@ export class AppController {
 		private readonly collectionsService: CollectionsService,
 		private readonly daoService: DaoService,
 		private readonly ethersService: EthersService
-	) {
-		this.logger.setContext(AppController.name);
-	}
+	) {}
 
 	@Get('test/log')
 	async testLog() {
@@ -49,7 +47,6 @@ export class AppController {
 		);
 		this.logger.error('Error while adding member to dao', { daoId: 3, userId: 4, role: 'member', tier: 'tier' });
 		this.logger.error('Cannot format', new Error('Http error'));
-		// @ts-expect-error
 		this.logger.debug('error message', { e: new Error('Test error'), a: 'a', b: 123 }, { context: 'Controller' });
 		// this.wst.error(new Error('Collection error'), { context: 'AppController' });
 		// this.wst.error('Collection error', { context: 'AppController', trace: new Error('trace error') });
@@ -59,10 +56,10 @@ export class AppController {
 
 		this.logger.error('Get collection token voting weights error', 'scsc');
 
-		this.logger.setContext({ userId: 'set context tst' });
+		//this.logger.setContext({ userId: 'set context tst' });
 		this.logger.error('Log after setContext', 'setContext');
 
-		this.logger.setContext(AppController.name);
+		//this.logger.setContext(AppController.name);
 	}
 
 	@HttpCode(200)

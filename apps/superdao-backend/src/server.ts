@@ -5,8 +5,7 @@ import { NestFactory } from '@nestjs/core';
 import http from 'http';
 import express from 'express';
 import { ExpressAdapter } from '@nestjs/platform-express';
-import { LoggerService } from '@nestjs/common';
-import { WINSTON_MODULE_PROVIDER } from '@dev/nestjs-common';
+import { Logger } from '@nestjs/common';
 import { config } from 'src/config';
 import { RedisIoAdapter } from 'src/services/socket/redis-io.adapter';
 import { AppModule } from 'src/app.module';
@@ -23,7 +22,7 @@ async function bootstrap() {
 
 	const app = await NestFactory.create(AppModule, adapter, { bufferLogs: true });
 
-	const logger = await app.resolve<LoggerService>(WINSTON_MODULE_PROVIDER);
+	const logger = new Logger('Bootstrap');
 	app.useLogger(logger);
 
 	app.use(

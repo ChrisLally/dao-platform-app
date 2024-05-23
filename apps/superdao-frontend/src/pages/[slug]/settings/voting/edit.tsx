@@ -130,7 +130,9 @@ const DaoEdit: NextPageWithLayout<Props> = (props) => {
 					queryClient.refetchQueries(useUserDaoParticipationQuery.getKey({ userId: userData!.id }));
 					toast(t('components.dao.settings.voting.saved'));
 				},
-				onError: (err) => {}
+				onError: (err) => {
+					console.error(err);
+				}
 			}
 		);
 	});

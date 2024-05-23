@@ -2,14 +2,11 @@ import { ReactNode } from 'react';
 import cn from 'classnames';
 
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
 import { OutlineLockIcon } from 'src/components/assets/icons';
 import { Label1 } from 'src/components/text';
 import { SkeletonComponent } from 'src/components/skeletonBaseComponent';
 import { CustomLink } from 'src/components';
 import { DaoPageNavigationTab } from './daoPageNavigationTab';
-import { useSwitch } from 'src/hooks';
-import { NewAudienceModal } from 'src/components/modals/newAudienceModal';
 import { formatToCompactNotation } from 'src/utils/formattes';
 
 type Props = {
