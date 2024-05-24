@@ -52,7 +52,7 @@ export const NftEmailClaimContainer: FC<NftEmailClaimProps> = ({ isNotAuthorized
 
 	const onResponseError = (error: string | unknown) => {
 		const message = typeof error === 'string' ? JSON.parse(error)?.[0]?.message : undefined;
-
+		console.error(message);
 		setShowUnknownErrorModal(true);
 		setIsClaiming(false);
 		setShowLoadingState(false);

@@ -25,7 +25,7 @@ export const CreatePostModal = (props: CreatePostModalProps) => {
 			{ createPostData: { ...post, daoId: daoIdForRequest } },
 			{
 				onSuccess: successCreation,
-				onError: (error) => {}
+				onError: (error) => {console.log(error)}
 			}
 		);
 	};

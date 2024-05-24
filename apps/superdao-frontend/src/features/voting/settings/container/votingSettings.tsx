@@ -225,7 +225,10 @@ export const VotingSettings = ({ slug, daoId, proposalId }: Props) => {
 
 						push(`/${slug}/voting/${proposal.editProposal.id}?edited=1`);
 					},
-					onError: (error) => {}
+					onError: (error) => {
+						toast.error(t('components.dao.voting.edition.submitError'), { position: 'bottom-center' });
+						console.error(error);
+					}
 				}
 			);
 		} else {
@@ -255,7 +258,10 @@ export const VotingSettings = ({ slug, daoId, proposalId }: Props) => {
 
 						push(`/${slug}/voting/${proposal.createProposal.id}?created=1`);
 					},
-					onError: (error) => {}
+					onError: (error) => {
+						toast.error(t('components.dao.voting.edition.submitError'), { position: 'bottom-center' });
+						console.error(error);
+					}
 				}
 			);
 		}

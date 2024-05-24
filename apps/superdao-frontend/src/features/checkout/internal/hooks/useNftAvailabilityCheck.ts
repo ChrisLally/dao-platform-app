@@ -19,7 +19,7 @@ export const useNftAvailabilityCheck = (): IBaseValidation & { isLoading: boolea
 		},
 		{
 			enabled: !!kernelAddress && !!tier && isAuthorized,
-			onError: (error) => {}
+			onError: (error) => {console.log(error)}
 		}
 	);
 

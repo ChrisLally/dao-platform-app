@@ -143,6 +143,9 @@ const NftDetailsPage: NextPageWithLayout<Props> = (props) => {
 		setShowClaimErrorModal(true);
 
 		const message = typeof error === 'string' ? JSON.parse(error)?.[0]?.message : undefined;
+		if (message) {
+			console.error(message);
+		}
 	};
 
 	const redirectToAutoClaim = () => {

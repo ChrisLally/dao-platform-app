@@ -124,6 +124,7 @@ export const useImportAirdrop = ({
 				{ whitelistAddEmailData: { daoId, items: byEmailAirdrop } },
 				{
 					onError: (e) => {
+						console.error(e);
 						toast.error('Airdrop by email failed', {
 							position: 'bottom-center',
 							duration: 5000

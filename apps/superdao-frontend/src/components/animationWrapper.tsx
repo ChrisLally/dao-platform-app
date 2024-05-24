@@ -36,7 +36,6 @@ export const AnimationWrapper: React.FC<AnimationWrapperProps> = ({ config = {},
 	);
 
 	const [lottieRef, state, { pause, play }] = useLottie(lottieOptions);
-
 	const [isDelayed, setDelayed] = useState(true);
 
 	const start = useCallback(() => {

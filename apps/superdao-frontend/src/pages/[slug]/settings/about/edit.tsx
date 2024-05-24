@@ -164,7 +164,9 @@ const DaoEdit: NextPageWithLayout<Props> = (props) => {
 
 					push(`/${params.updateDao.slug}`);
 				},
-				onError: (err) => {}
+				onError: (err) => {
+					console.error(err);
+				}
 			}
 		);
 	});

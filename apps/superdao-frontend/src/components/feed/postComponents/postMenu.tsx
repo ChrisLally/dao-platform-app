@@ -38,7 +38,7 @@ export const PostMenu = (props: Props) => {
 			{ deletePostData: { postId } },
 			{
 				onSuccess: onDeletePostSuccess,
-				onError: (error) => {}
+				onError: (error) => {console.log(error)}
 			}
 		);
 		toggleDeleteModal();

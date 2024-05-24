@@ -125,9 +125,7 @@ const SuperdaoApp = ({ Component, pageProps }: AppPropsWithLayout) => {
 
 			<Global styles={globalStyles} />
 			<Global styles={datepickerStyle} />
-			{/* @ts-expect-error TODO: move to @tanstack/react-query to support React v18 */}
 			<QueryClientProvider client={queryClient}>
-				{/* @ts-expect-error TODO: move to @tanstack/react-query to support React v18 */}
 				<Hydrate state={dehydratedState}>
 					<WalletProvider isMetaTransactionEnabled={isMetaTransactionEnabled}>
 						<AuthUI.AuthModalProvider>

@@ -3,8 +3,8 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import winston from 'winston';
-import { WinstonModule, WINSTON_MODULE_PROVIDER, TracerModule } from '@dev/nestjs-common';
+//import winston from 'winston';
+//import { WinstonModule, WINSTON_MODULE_PROVIDER, TracerModule } from '@dev/nestjs-common';
 import { TasksService } from 'src/entities/cron/tasks.service';
 import { DAO_PER_DAY_CREATION } from 'src/entities/dao/constants';
 import { config } from 'src/config';
@@ -21,7 +21,7 @@ import { Onboarding } from 'src/entities/onboarding/onboarding.model';
 import { TreasuryModule } from '../treasury/treasury.module';
 import { WalletModule } from '../wallet/wallet.module';
 import { AlchemyModule } from 'src/services/alchemy/alchemy.module';
-import { devTransports, prodTransports } from 'src/utils/logger';
+//import { devTransports, prodTransports } from 'src/utils/logger';
 import { CovalentApi } from 'src/libs/covalentApi';
 import { Dao } from '../dao/dao.model';
 import { CompositeBlockchainModule } from 'src/services/blockchain/blockchain.module';
@@ -58,7 +58,7 @@ const valuesToInitialize: Record<string, string | number> = {
 			})
 		}),
 		RedisModule.forRootAsync({
-			inject: [ConfigService, WINSTON_MODULE_PROVIDER],
+			inject: [ConfigService],
 			useFactory: async (configService: ConfigService, logger: LoggerService) => ({
 				config: {
 					host: configService.get('redis.host'),
@@ -93,20 +93,7 @@ const valuesToInitialize: Record<string, string | number> = {
 		TreasuryModule,
 		WalletModule,
 		AlchemyModule,
-		TracerModule,
-		CompositeBlockchainModule,
-		WinstonModule.forRootAsync({
-			useFactory: (configService: ConfigService) => {
-				const isProd = configService.get<boolean>('env.isProd');
-				return {
-					level: isProd ? 'info' : 'debug',
-					format: winston.format.json(),
-					transports: isProd ? prodTransports : devTransports
-				};
-			},
-			inject: [ConfigService],
-			imports: [TracerModule]
-		})
+		CompositeBlockchainModule
 	]
 })
 export class TasksModule {}

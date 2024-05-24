@@ -1,12 +1,14 @@
 import { IoAdapter } from '@nestjs/platform-socket.io';
-import { Server, ServerOptions } from 'socket.io';
-import { createAdapter } from '@socket.io/redis-adapter';
+import { Server, ServerOptions, Namespace } from 'socket.io';
+import { createAdapter, RedisAdapter } from '@socket.io/redis-adapter';
 import Redis from 'ioredis';
 import { INestApplicationContext } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
+type CustomAdapterConstructor = (nsp: Namespace) => RedisAdapter;
+
 export class RedisIoAdapter extends IoAdapter {
-	private adapterConstructor: ReturnType<typeof createAdapter>;
+	private adapterConstructor: CustomAdapterConstructor;
 
 	constructor(private app: INestApplicationContext) {
 		super(app);
@@ -26,12 +28,12 @@ export class RedisIoAdapter extends IoAdapter {
 		});
 		const subClient = pubClient.duplicate();
 
-		this.adapterConstructor = createAdapter(pubClient, subClient);
+		this.adapterConstructor = createAdapter(pubClient, subClient) as CustomAdapterConstructor;
 	}
 
 	createIOServer(port: number, options?: ServerOptions): Server {
 		const server: Server = super.createIOServer(port, options);
-		server.adapter(this.adapterConstructor);
+		server.adapter(this.adapterConstructor as any); // Type assertion if necessary
 		return server;
 	}
 

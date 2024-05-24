@@ -13,6 +13,6 @@ export const useLogout = () => {
 
 			await push('/auth/login');
 		},
-		onError: async (error) => {}
+		onError: async (error) => {console.log(error)}
 	});
 };

@@ -29,7 +29,7 @@ export const EditPostModal = (props: EditPostModalProps) => {
 			{ updatePostData: { ...newPost, postId: post.id } },
 			{
 				onSuccess: onEditSuccess,
-				onError: (error) => {}
+				onError: (error) => {console.log(error)}
 			}
 		);
 	};

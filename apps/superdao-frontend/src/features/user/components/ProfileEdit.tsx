@@ -122,7 +122,9 @@ export const ProfileEdit = ({ currentUser, daoMentions, hostname }: Props) => {
 					const { slug, id } = result.updateUser;
 					router.push(`/users/${slug || id}`);
 				},
-				onError: (error) => {}
+				onError: (error) => {
+					toast.error(parseGqlErrorMessage(error));
+				}
 			}
 		);
 	});

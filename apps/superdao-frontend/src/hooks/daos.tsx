@@ -157,6 +157,7 @@ export const useDaoCreate = (onSuccess?: () => void) => {
 				router.push(`/${params!.createDao.slug || params!.createDao.id}?isNew=1`);
 			},
 			onError: (error, variables) => {
+				console.error('useDaoCreate error:', error);
 				const { createDaoData } = variables || {};
 				const { name } = createDaoData || {};
 				toast.dismiss(name);

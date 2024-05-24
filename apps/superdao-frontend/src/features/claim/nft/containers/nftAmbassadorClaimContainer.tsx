@@ -74,6 +74,7 @@ export const NftAmbassadorClaimContainer: FC<NftReferralClaimProps> = (props) =>
 					}
 				},
 				onError: (error) => {
+					console.error(error)
 					setShowUnknownErrorModal(true);
 					setIsClaiming(false);
 					setShowLoadingState(false);
